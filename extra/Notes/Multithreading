@@ -134,3 +134,23 @@ Two Computations: On a single-core CPU, handling two computationally intensive t
 Since the CPU can only execute one thread at a time, it must constantly switch between the two tasks.
 This results in context switching overhead, which can degrade performance rather than improve it.
 
+
+
+Throughput Improvement
+Throughput is number of task completed in unit time.
+It comes into picture when a system or program is flooded with concurrent flow of tasks and we want to perform as many as possible
+as fast as possible
+
+If our each tasks take T time, then our throughput is basically 1. Because in T time, We can do 1 task only.
+now if we use thread and decrease the time of 1 task by which becomes T/N, then our throughput becomes N tasks or N/T. Here N is generally
+the number of cores == number of threads. But this is theoricaticaly, In reality there is a inherent cost;
+
+So to increase throughput, We should assign each task to thread. We shouldn't break the task further as that's not useful much.
+
+Thread Pooling:
+Resue of threads once it's job is done so that creation part is not duplicated. So basically ThreadPool is a pool of threads lol
+
+Now measure Throughput w and without MT
+
+We build a HTTP server system which will take in lot of HTTP requests and threadpool will execute each request
+We can use Jmeter to do a performance test
