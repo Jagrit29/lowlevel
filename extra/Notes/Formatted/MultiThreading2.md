@@ -1,111 +1,111 @@
-### Throughput Performance Metric
+## Throughput Performance Metric
 
-        **Throughput** is a performance metric that measures the number of tasks completed in a given period. It's typically expressed as the number of tasks per second. This metric is crucial when you have a program handling a concurrent flow of tasks and want to maximize the number of tasks completed as quickly as possible.
+**Throughput** is a performance metric that measures the number of tasks completed in a given period. It's typically expressed as the number of tasks per second. This metric is crucial when you have a program handling a concurrent flow of tasks and want to maximize the number of tasks completed as quickly as possible.
 
-        #### Improving Throughput
+### Improving Throughput
 
-        1. **Breaking Tasks into Subtasks:**
-        - **Concept**: If a task takes time \( T \) to complete, breaking it into subtasks can potentially improve throughput. If you have \( N \) subtasks, and each subtask takes \( T/N \) time, you can theoretically achieve a throughput of \( N/T \).
-        - **Example**: Suppose you need to process large files. Instead of processing each file sequentially, you can split each file into chunks and process them concurrently. This can significantly improve throughput, though in practice, the improvement may be less due to overhead costs.
+1. **Breaking Tasks into Subtasks**:
+    - **Concept**: If a task takes time \( T \) to complete, breaking it into subtasks can potentially improve throughput. If you have \( N \) subtasks, and each subtask takes \( T/N \) time, you can theoretically achieve a throughput of \( N/T \).
+    - **Example**: Suppose you need to process large files. Instead of processing each file sequentially, you can split each file into chunks and process them concurrently. This can significantly improve throughput, though in practice, the improvement may be less due to overhead costs.
 
-        ```java
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+    ```java
+    import java.util.concurrent.ExecutorService;
+    import java.util.concurrent.Executors;
 
-public class TaskSplitterExample {
-    public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(4); // 4 threads in the pool
+    public class TaskSplitterExample {
+        public static void main(String[] args) {
+            ExecutorService executor = Executors.newFixedThreadPool(4); // 4 threads in the pool
 
-        for (int i = 0; i < 10; i++) {
-            final int taskId = i;
-            executor.submit(() -> {
-                System.out.println("Processing task " + taskId);
-                // Simulate task processing
-                try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
-            });
-        }
+            for (int i = 0; i < 10; i++) {
+                final int taskId = i;
+                executor.submit(() -> {
+                    System.out.println("Processing task " + taskId);
+                    // Simulate task processing
+                    try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
+                });
+            }
 
-        executor.shutdown();
-    }
-}
-   ```
-
-           2. **Scheduling Tasks on Separate Threads:**
-        - **Concept**: Assign each task to a separate thread. This method can achieve a throughput close to \( 1/T \), assuming tasks are independent and do not need to be broken down further.
-   - **Example**: If you have multiple independent tasks that can be executed in parallel, creating separate threads for each task can improve throughput.
-
-   ```java
-public class ThreadSchedulingExample {
-    public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
-            final int taskId = i;
-            new Thread(() -> {
-                System.out.println("Processing task " + taskId);
-                // Simulate task processing
-                try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
-            }).start();
+            executor.shutdown();
         }
     }
-}
-   ```
+    ```
 
-           3. **Thread Pooling:**
-        - **Concept**: Instead of creating and destroying threads frequently, use a pool of pre-created threads to handle tasks. This reduces the overhead of thread creation and destruction.
-   - **Example**: Java's `ExecutorService` provides a convenient way to implement thread pooling using a `FixedThreadPool`. The `FixedThreadPool` maintains a constant number of threads and manages task scheduling through an internal queue.
+2. **Scheduling Tasks on Separate Threads**:
+    - **Concept**: Assign each task to a separate thread. This method can achieve a throughput close to \( 1/T \), assuming tasks are independent and do not need to be broken down further.
+    - **Example**: If you have multiple independent tasks that can be executed in parallel, creating separate threads for each task can improve throughput.
 
-        ```java
-   import java.util.concurrent.ExecutorService;
-   import java.util.concurrent.Executors;
-
-public class ThreadPoolExample {
-    public static void main(String[] args) {
-        ExecutorService threadPool = Executors.newFixedThreadPool(4); // 4 threads in the pool
-
-        for (int i = 0; i < 10; i++) {
-            final int taskId = i;
-            threadPool.submit(() -> {
-                System.out.println("Processing task " + taskId);
-                // Simulate task processing
-                try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
-            });
+    ```java
+    public class ThreadSchedulingExample {
+        public static void main(String[] args) {
+            for (int i = 0; i < 10; i++) {
+                final int taskId = i;
+                new Thread(() -> {
+                    System.out.println("Processing task " + taskId);
+                    // Simulate task processing
+                    try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
+                }).start();
+            }
         }
-
-        threadPool.shutdown();
     }
-}
-   ```
+    ```
 
-           ### Summary
+3. **Thread Pooling**:
+    - **Concept**: Instead of creating and destroying threads frequently, use a pool of pre-created threads to handle tasks. This reduces the overhead of thread creation and destruction.
+    - **Example**: Java's `ExecutorService` provides a convenient way to implement thread pooling using a `FixedThreadPool`. The `FixedThreadPool` maintains a constant number of threads and manages task scheduling through an internal queue.
+
+    ```java
+    import java.util.concurrent.ExecutorService;
+    import java.util.concurrent.Executors;
+
+    public class ThreadPoolExample {
+        public static void main(String[] args) {
+            Executor
+
+Service threadPool = Executors.newFixedThreadPool(4); // 4 threads in the pool
+
+            for (int i = 0; i < 10; i++) {
+                final int taskId = i;
+                threadPool.submit(() -> {
+                    System.out.println("Processing task " + taskId);
+                    // Simulate task processing
+                    try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
+                });
+            }
+
+            threadPool.shutdown();
+        }
+    }
+    ```
+
+## Summary
 
 - **Throughput** measures how many tasks are completed per unit time.
 - To improve throughput, consider breaking tasks into smaller subtasks or scheduling each task on a separate thread.
-        - **Thread Pooling** helps maintain a constant number of threads, reducing the overhead associated with thread creation and destruction.
+- **Thread Pooling** helps maintain a constant number of threads, reducing the overhead associated with thread creation and destruction.
 - Using a fixed thread pool, you can achieve high throughput and efficient resource utilization.
 
-        In practice, applying these techniques can lead to significant performance improvements, which will be explored further in practical examples in future lectures.
-
-
-
-Here’s a comprehensive guide that includes both the documentation and code for building and testing an HTTP server application.
+In practice, applying these techniques can lead to significant performance improvements, which will be explored further in practical examples in future lectures.
 
 ---
 
-## **HTTP Server Application Guide**
+---
 
-### **Overview**
+# HTTP Server Application Guide
+
+## Overview
 
 This guide explains how to build an HTTP server that serves as a basic search engine. The server processes HTTP requests to count the occurrences of a word in a large book ("War and Peace" by Tolstoy). We’ll also use Apache JMeter to test the performance of the server.
 
-### **1. Building the HTTP Server**
+## 1. Building the HTTP Server
 
-#### **1.1. Overview**
+### 1.1. Overview
 
 The HTTP server will:
 - Load a large book into memory.
 - Handle incoming HTTP requests to search for specific words in the book.
 - Respond with the count of occurrences of the word.
 
-#### **1.2. Code Implementation**
+### 1.2. Code Implementation
 
 **WordCountServer.java**
 ```java
@@ -205,13 +205,13 @@ public class WordCountHandler implements HttpHandler {
 }
 ```
 
-### **2. Testing the HTTP Server**
+## 2. Testing the HTTP Server
 
-#### **2.1. Overview**
+### 2.1. Overview
 
 We’ll use Apache JMeter to measure the performance of the HTTP server by sending a large number of requests and analyzing the throughput.
 
-#### **2.2. Apache JMeter Setup**
+### 2.2. Apache JMeter Setup
 
 1. **Install Apache JMeter**:
     - Download and install JMeter from [Apache JMeter](https://jmeter.apache.org/).
@@ -257,7 +257,7 @@ Tolstoy
     - Right-click on **Thread Group** → **Add** → **Listener** → **Summary Report**.
     - Right-click on **Thread Group** → **Add** → **Listener** → **View Results Tree**.
 
-#### **2.3. Running the Test**
+### 2.3. Running the Test
 
 1. **Save** the test plan in JMeter.
 2. **Run** the test plan to start sending requests and measuring performance.
@@ -265,7 +265,7 @@ Tolstoy
     - Check the Summary Report for throughput and performance metrics.
     - Inspect individual request results in the View Results Tree.
 
-### **3. Performance Analysis**
+## 3. Performance Analysis
 
 - **ThreadPool Size Impact**:
     - Start with a ThreadPool size of 1 and measure the throughput.
@@ -275,11 +275,3 @@ Tolstoy
 - **Optimization Insights**:
     - Using a ThreadPool and handling requests concurrently improves performance.
     - Beyond the number of virtual cores, additional threads do not further improve throughput.
-
-### **Conclusion**
-
-By implementing and testing this HTTP server, you learned how to handle HTTP requests, search text, and optimize server performance using threading and performance testing tools like Apache JMeter.
-
----
-
-Feel free to reach out if you have more questions or need further assistance!
