@@ -1,5 +1,6 @@
 MultiThreading in JAVA
 
+CHAPTER - 1
 Process
 All the apps etc that we run in our laptop those are ran by OS by creating an instance of those. This Instance is called a Process
 Each Process runs completely Independant of another process and it's the job of CPU to manage these processes
@@ -7,6 +8,8 @@ Each Process runs completely Independant of another process and it's the job of 
 Thread:
 Each Process can have single or multiple threads. Threads within a process have there own stack and pointer but they share the memory and code etc.
 So they are not completely independant within a process.
+Thread shares the heap, code, metadata
+Thread don't share the stack and the instruction pointer.
 
 Context Switch:
 Now at any time, We will have way more threads compared to the cores. So OS eventually have to context switch b/w these if we want to manage
@@ -19,6 +22,7 @@ Two Process - Text Editor and Music Player
 Each Process have two threads one for BE and one for UI action
 Now we need to decide how to schedule this, What OS does is that it divides time into epochs and then based on Dyanmic priority it assigns threads
 into particular epoch
+OS maintains a dynamic priority for each thread to prioritize interaction threads like UI actions and to avoid starvation of any thread.
 
 MultiThread vs MultiProcess
 Prefer MT if a lot data is shared b/w the task
@@ -30,4 +34,103 @@ It helps us to acheive concurrency ( managing multiple tasks at once ) and paral
 performance
 Use of multiple threads lets us manage mulitple related tasks simultaneously, which makes the app more responsive and if we execute these task
 parallely, we acheive higher performance.
+
+
+CHAPTER - 2
+Practical of Threads
+
+All the thread related props and methods are encapsulated by Java into a class called Thread.
+We can create a thread object and we need to pass a Runnable object into that which thread class implements.
+Then you can do threadObject.start() to start;
+Thread class of Java also offers certain static stuffs which don't require an object and can tell you which thread you are running etc
+
+For a particular thread, We can assign name, priority and we can set exceptionHandler for the thread so that our code doesn't break;
+
+Thread inheritance
+Another way of creating thread is extending the Thread class itself and creating a newThread class for yourself
+
+
+CHAPTER - 3
+Thread termination
+
+Why and When
+If thread is misbehaving, or if it's work is done, or We want to stop it because otherwise it will consume resources like
+memory, cache memory etc
+
+How
+We can use thread.interrup() - if our thread has a interupt exception implemented or we need to add check like isInteruppted, etc
+
+Daemon Threads
+Background threads that don't prevent the app from exiting if the main thread ends. It's like we don't need to manually interupt these
+AutoSave - This is used for background tasks like when we are saving some file and user closes it. If we don't want the file to be saved, we can just end
+the app there.
+We can use setDemon() to true and it won't matter whether it is complete or not and our app can end; If the thread is not demon, It will not allow
+the app to end.
+
+Thread Coordination
+Controlling the threads so that we can achieve the results we want.
+Different threads run independently and there order of excecution is out of our control
+
+What if there is a thread dependency b/w 2 threads? Let's say Thread B depends on Thread A
+One naive way is that whenever OS calls thread B it can check if A is complete or not, if not do nothing. now this is just wasting CPU cycles
+Another way is that B thread will sleep untill thred A is complete.
+
+For example, Let's say you have 10 big numbers you want to calc factorial of, Now naive for loop is very time extensive. What we can do is
+have each thread running for each big number, This way it's faster.
+
+Now to know if a thread is finished, We can use thread.join() which only returns when it's actually finished, means it wait for the
+thread to finish its execution; Now thread join also has a limit
+of waiting. If you pass 2000, It will only wait for 2sec
+
+
+CHAPTER 4
+Performance Optmisation
+Performance metric varies from app to app, For some it's its low latency, for some accurate frame rate, For ML apps, It's the amount of data
+it can ingest or the throughput.
+
+Latency - Time to complete one task
+Throughput - Amount of task completed in unit time;
+
+Latency:
+To reducing latency more, We can divide one task into multiple Independant task and run them in concurrency manner. Theoratical we can reduce
+latency by N, where N is the no. of sub task but it is only possible
+If the cost of breaking is free or okay, or is it even possible to break
+
+N should be close to number of cores you have so that you can actual achieve parallesim; And all the threads should be independant ( no io blocking
+ , sleep etc ) and runnable. Meaning it is always in runnable state so the core which has that thread will never leave it hence less context switch.
+all the time which is nearly impossible.
+
+We assume that CPU is dedicated for this app and it has no other things running.
+
+Hyperthreading - Single core can run two threads parallel because the core has some duplicate items or shared things which can be used;
+
+Inheret Cost - Breaking the tasks, Creating the threads, Starting the threads, finishing the threads, Combining the results. So small task are
+not worth breaking.
+
+So tasks can be type parallal(which can be broken), sequential, partially parallel.
+
+Image Processing:
+Each image is understood by computer as lot of pixels and each pixel has ARGB bit associated which tells it's color. Now here as the image can
+be brokern down into pieces it is very useful to use multithreading if we want to cover each pixel of image to do something. Something like
+coloring the image. Pixels will have coordinates like x and y. There will be improvement on multi core processors when we have big image.
+
+If the problem can be partitioned, Multithreading can help
+If no of threads are more than cores, It could be counter productive when it's pure computational task and no IO, or blocking calls; This is because
+if all your tasks require CPU attention then no point. I/O, Blocking calls doesn't require that much CPU attention like making network request, etc.
+There is always some inherent cost of multithreading so don't use when it's not required like for a very small image that main thread can take
+care of.
+
+Handling I/O-bound Tasks: When a thread is performing an I/O operation (like reading from a file or waiting for a network response),
+it often enters a blocked state, meaning it is not using the CPU. During this time, the CPU is free to perform other tasks.
+Multithreading becomes highly beneficial here because while one thread is waiting for the I/O operation to complete,
+the CPU can switch to another thread that is ready to do work.
+
+Why Can a CPU Handle I/O and Computation Together but Not Two Computations?
+I/O and Computation: When handling an I/O operation, the CPU is often idle,
+waiting for data to be transferred from a device or network.
+During this idle time, the CPU can execute other tasks, like computations.
+This parallelism between I/O and computation works well because the I/O operation doesn't require the CPU's constant attention.
+Two Computations: On a single-core CPU, handling two computationally intensive tasks simultaneously doesn't provide the same benefit because both tasks require continuous CPU time.
+Since the CPU can only execute one thread at a time, it must constantly switch between the two tasks.
+This results in context switching overhead, which can degrade performance rather than improve it.
 
