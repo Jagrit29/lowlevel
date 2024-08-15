@@ -1,0 +1,33 @@
+MultiThreading in JAVA
+
+Process
+All the apps etc that we run in our laptop those are ran by OS by creating an instance of those. This Instance is called a Process
+Each Process runs completely Independant of another process and it's the job of CPU to manage these processes
+
+Thread:
+Each Process can have single or multiple threads. Threads within a process have there own stack and pointer but they share the memory and code etc.
+So they are not completely independant within a process.
+
+Context Switch:
+Now at any time, We will have way more threads compared to the cores. So OS eventually have to context switch b/w these if we want to manage
+multiple things at once. So that's where Context Switch comes into picture.
+Having too many threads, It can result in thrashing where OS is spending more time context switching than actually doing anything. Context Switch
+b/w threads is cheaper than b/w processes.
+
+Thread Scheduling
+Two Process - Text Editor and Music Player
+Each Process have two threads one for BE and one for UI action
+Now we need to decide how to schedule this, What OS does is that it divides time into epochs and then based on Dyanmic priority it assigns threads
+into particular epoch
+
+MultiThread vs MultiProcess
+Prefer MT if a lot data is shared b/w the task
+MT is faster and context switch is faster
+MP is better if we want better security so we can create multiple process and also if the tasks are unrelated to each other.
+
+Why Multi Threading?
+It helps us to acheive concurrency ( managing multiple tasks at once ) and parallesim ( executing multiple tasks at once ), responsiveness and high
+performance
+Use of multiple threads lets us manage mulitple related tasks simultaneously, which makes the app more responsive and if we execute these task
+parallely, we acheive higher performance.
+
