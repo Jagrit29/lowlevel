@@ -154,3 +154,40 @@ Now measure Throughput w and without MT
 
 We build a HTTP server system which will take in lot of HTTP requests and threadpool will execute each request
 We can use Jmeter to do a performance test
+
+CHAPTER 5:
+Data Sharing b/w threads
+
+Stack
+Stack Memory Region - Belongs to particular thread;
+Local references
+Local primitive types
+Stack contains args, local variables, For each method, There is a stack frame within a stack;
+When a method is returned, the frame gets removed, and then the answer gets push to the older stack frame.
+Stack is unique when it comes to Thread;
+
+Heap
+Heap is shared among the threads
+Objects are stored on the heap.
+Class Members, Static variables - That's why I declare class member like dp array on the top so that the methods can use it
+Heap is managed by Garbage Collector
+
+Object and Reference
+List<Integer> list = new ArrayList<>();  Now here list is a reference and actual object is ArrayList. So that is stored in heap
+but list is in stack
+
+Why Resource Sharing b/w Threads
+Resource - Something that represents data or state. For ex, variables, data structures, files, message queue or any object
+Thread can share everything in heap within a process
+For example, Kafka Queue or Bus is mostly a shared resource among the consumers to acheive high performance.
+Database Microservice. Where multiple microservirces are hitting the db. So here db is the shared resource;
+
+Problem of Sharing Resources in thread;
+Ecommerce site. LEt's say we have inventoryCounter class which has count of items. Now if multiple threads hit this, the item variable
+which is shared is gonna have problem;
+Operations are not atomic in the above example; Atomic operation is all or none. Either it happened or it never happened
+For example item++ is 3 step operation, First we get the value and then we do newValue = value + 1 and then we store it to value. so t
+this is not atmoic if we interupt;
+
+now item++ and items-- concurrently
+As OS arranges the thread, it can result in very different results. One operation might be overrriden as it's a 3 step process.
