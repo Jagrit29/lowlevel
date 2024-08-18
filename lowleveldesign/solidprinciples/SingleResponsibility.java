@@ -40,3 +40,4 @@ class UserActivityLogger {
 
 public class SingleResponsibility {
 }
+
