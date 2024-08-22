@@ -1,4 +1,4 @@
-package extra.Notes;
+package notes;
 
 public class ThreadExample {
     // I want to run multiple tasks at once;

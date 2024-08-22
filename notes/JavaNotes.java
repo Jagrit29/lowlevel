@@ -1,4 +1,4 @@
-package extra.Notes;
+package notes;
 
 public class JavaNotes {
     public static void main(String[] args) {

@@ -309,3 +309,34 @@ useful.
 
 TryLock
 It tries first and if it is avl then only lock but if its not avl, It gives false and moves on;
+
+
+CHAPTER 8 - InterThread Communication
+Sempahoes - Syncron tool, act like a permit restriction agency which can restrict n users to a paritcular resoures. Locks restrict only 1 but here semaphoreses can restrict multiple
+
+For example, Parking lot
+If a parking lot has 10 slots, We can give permit to 10 cars.
+
+Threads acquire permits from the semaphore using sempharore.qcuire.
+if the semaphore doesn't have permits, it will block the thread.
+
+We can also think of lock is just another semaphore with permits avl 1. But there are some difference. Semaphore doesn't have notion of owner of thread
+In sempahore if the same thread acrquire the sempahore and it has only can, it can result in block.
+Semphaore is not good for locking.
+
+Semphahsore - Single Produce Consumer;
+
+acquire in semaphore is like a condition var
+condition var has much more functionality
+condition.await()
+condition.signal or condition.signalAll()
+
+
+
+Another ways to single - wait(), notifiy(), notifiyAll()
+
+wait() - Causes the current thead to wait
+notify() - wakes up a single thred witing on the object
+notifiyAll() - wakes up all the threads waiting on that object
+
+Here these above are appiled on the share class.
