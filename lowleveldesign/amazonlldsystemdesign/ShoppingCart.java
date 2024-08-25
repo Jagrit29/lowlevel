@@ -37,5 +37,9 @@ public class ShoppingCart {
         return new ArrayList<>(items.values());
     }
 
+    public void clear() {
+        items.clear();
+    }
+
 
 }

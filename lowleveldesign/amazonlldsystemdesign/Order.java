@@ -2,6 +2,7 @@ package lowleveldesign.amazonlldsystemdesign;
 import java.util.List;
 
 enum OrderStatus {
+    CANCELLED,
     PAYMENT_PENDING,
     SHIPPED,
     DELIVERED,
@@ -17,16 +18,22 @@ public class Order {
     private double amount;
 
     // To create a new order, We need a user who is creating that order and then orderItems he is ordering;
-    public Order(User user, List<OrderItem> orderItems) {
-        this.id = "uniqueUUIDcreator";
+    public Order(String id, User user, List<OrderItem> orderItems) {
+        this.id = id;
         this.user = user;
         this.orderItems = orderItems;
+        this.amount = orderAmount();
     }
 
     // we need to calculate the amount for that particular order; for that each orderItem will have a product and it w
     // it will come with a price;
     // now this we will implement once we have product class;
     // -----> todo
+
+    private double orderAmount() {
+        // this will return the amount of all the items;
+        return orderItems.stream().mapToDouble(orderItem -> orderItem.getProductQuantity()*orderItem.getProduct().getPrice()).sum();
+    }
 
 
     public String getId() {

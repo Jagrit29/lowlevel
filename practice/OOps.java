@@ -6,7 +6,7 @@ class TrieNode {
 
     public TrieNode(int n) {
         isWord = false;
-        letters = new TrieNode[];
+        letters = new TrieNode[26];
     }
 
     public boolean add(String s) {

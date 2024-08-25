@@ -7,8 +7,8 @@ public class Product {
     private int quantity;
     private double price;
 
-    public Product(String name, String description, int quantity, double price) {
-        this.id = "uniqueUUID";
+    public Product(String id, String name, String description, int quantity, double price) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.quantity = quantity;

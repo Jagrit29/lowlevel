@@ -10,8 +10,8 @@ public class User {
     private List<Order> orders;
 
     // now I have my constructor to create a new user for my system;
-    public User(String name, String email, String password) {
-        this.id = "uniqueUUID"; // assign UUID to the newly created user;
+    public User(String id, String name, String email, String password) {
+        this.id = id; // assign UUID to the newly created user;
         this.name = name;
         this.email = email;
         this.password = password;
