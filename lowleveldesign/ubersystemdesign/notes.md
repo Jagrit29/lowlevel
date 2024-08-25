@@ -23,6 +23,9 @@ Now Let's see what are the commons things or requirements
 // as usual we will start will the smallest entity that one can understand;
 
 
+// after designing the basic classes and emthods like Driver, Passenger, Ride, now comes the importan one called RideService;
+
+
 
 ## Requirements
 
