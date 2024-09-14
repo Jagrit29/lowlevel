@@ -1,10 +1,10 @@
 package lowlevelcoding.snippets;
 
-public class ThreadRaceConditionPOC {
+public class POC3SynchronizedThread {
     public static void main(String args[]) throws InterruptedException {
         // To run multiple threads on bankaccount, we first need the same particular process for it
         // now process is nothing but instatiation of that;
-        BankAccount account = new BankAccount();
+        BankAccount1 account = new BankAccount1();
 
         // now on this bankaccount let's run two threads which can be two different users withdrawing at the similar time;
 
@@ -39,10 +39,10 @@ public class ThreadRaceConditionPOC {
 }
 
 // Now let's assume this is my program and I want to run multiple threads on this particular program;
-class BankAccount {
+class BankAccount1 {
     private int balance = 1000; // shared resource;
 
-    public void withdraw(int amount) {
+    public synchronized void withdraw(int amount) {
         if(balance >= amount) {
             System.out.println(Thread.currentThread().getName() +" is about to withdraw " +amount);
             balance -= amount;
