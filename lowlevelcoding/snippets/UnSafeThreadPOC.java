@@ -1,6 +1,6 @@
 package lowlevelcoding.snippets;
 
-public class UnSafeThread {
+public class UnSafeThreadPOC {
     public static void main(String args[]) throws InterruptedException {
         // first I need to create a process of threadCounter on which I will run the threads;
         ThreadUnsafeCounter countingProcess = new ThreadUnsafeCounter();
