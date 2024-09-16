@@ -1,7 +1,9 @@
 package lowleveldesign.solidprinciples;
 /*
-The Interface Segregation Principle (ISP) states that no client should be forced to depend on methods it does not use.
-In other words, it’s better to have multiple small, specific interfaces rather than a large, general-purpose interface.
+I - Interface Segregation Principle (ISP):
+Definition: Clients should not be forced to depend on interfaces they do not use.
+Explanation: Larger interfaces should be split into smaller, more specific ones so that classes implement only the methods they need.
+Example: Instead of having one large Animal interface with methods like walk(), fly(), and swim(), you could have separate interfaces like Walkable, Flyable, and Swimmable, so animals only implement the methods relevant to them.
  */
 
 // Wrong way

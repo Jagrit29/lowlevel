@@ -1,5 +1,12 @@
 package lowleveldesign.solidprinciples;
 
+/*
+Open/Closed Principle (OCP):
+Definition: Classes should be open for extension but closed for modification.
+Explanation: You should be able to add new functionality to a class by extending it without changing its existing code.
+Example: If you have a Shape class, you can add new shapes (like Circle or Rectangle) by extending Shape, without modifying the Shape class itself.
+*/
+
 // Wrong way
 class NotificationService {
     public void sendEmail(String message) {

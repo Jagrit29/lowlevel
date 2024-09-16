@@ -1,6 +1,9 @@
 package lowleveldesign.solidprinciples;
 /*
-High level module shouldn't directly depend on low level module
+Dependency Inversion Principle (DIP)
+Definition: High-level modules should not depend on low-level modules; both should depend on abstractions.
+Explanation: Instead of a class depending on concrete implementations, it should depend on interfaces or abstractions, making the code more flexible and easier to modify.
+Example: A PaymentService should depend on an IPaymentProcessor interface, not directly on specific implementations like PayPalPaymentProcessor or StripePaymentProcessor.
  */
 
 
@@ -48,7 +51,7 @@ class OutLookClient2 implements EmailClient2 {
 
 // Now we have email client and various kind of classes implementing emailclient. Now we can use this in oru EmailService;
 
-// Now this EmailSerice is not dependable on any of the one low level module;
+// Now this EmailService is not dependable on any of the one low level module;
 class EmailService2 {
     private EmailClient2 emailClient2;
 
