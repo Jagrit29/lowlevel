@@ -1,6 +1,6 @@
 Creational Design Patterns
 -> These comes into picture when we talk about object creation mechanism based of various situation
--> These are generally about class intiation or object creation. Like how can you initiate a class etc;
+-> These are generally about class initiation or object creation. Like how can you initiate a class etc;
 
 Singleton: Ensures a class has only one instance.
 Factory Method: Creates objects without specifying the exact class. You can use interface
