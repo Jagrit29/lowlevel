@@ -22,6 +22,7 @@ public class GameManager {
     public void startNewGame(List<String> playerNames) {
         Game game = new Game(playerNames);
         games.add(game);
+        game.play();
         // this is one way;
 //        Thread t1 = new Thread(new Runnable() {
 //            @Override
@@ -29,7 +30,7 @@ public class GameManager {
 //                game.play();
 //            }
 //        });
-        new Thread(game::play); // this another wya
+//        new Thread(game::play); // this another wya
 
 
     }
