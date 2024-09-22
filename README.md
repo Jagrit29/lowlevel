@@ -8,3 +8,5 @@ Designs
 2. HotelManagement - 21 Sept 2024
 3. Airline - 21 Sept 2024 
 4. Snake Ladder - 21 Sept 2024  
+5. University Course - 22 Sept 
+
