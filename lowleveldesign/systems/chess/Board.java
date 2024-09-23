@@ -35,7 +35,35 @@ public class Board {
         }
     }
 
+
     public Piece getPiece(int row, int col) {
         return board[row][col];
+    }
+
+
+    public void setPiece(int row, int col, Piece piece) {
+        board[row][col] = piece;
+    }
+
+    public boolean isValidMove(Piece piece, int destRow, int destCol) {
+        if(piece == null || destRow < 0 || destCol < 0 || destRow > 7 || destCol > 7) return false;
+
+        // Now I want know what is the peive at the destRow;
+        Piece destPiece = board[destRow][destCol];
+
+        boolean sameOrNoPiece = destPiece == null || destPiece.getColor() != piece.getColor();
+
+        // also this pieces can more;
+        return sameOrNoPiece && piece.canMove(this, destRow, destCol);
+    }
+
+    public boolean isCheckmate(Color color) {
+        // TODO: Implement checkmate logic
+        return false;
+    }
+
+    public boolean isStalemate(Color color) {
+        // TODO: Implement stalemate logic
+        return false;
     }
 }
