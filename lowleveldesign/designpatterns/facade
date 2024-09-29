@@ -1,0 +1,115 @@
+The Facade Pattern is a structural design pattern that provides a simplified interface to a complex subsystem. It hides the complexity of the system and provides an easier way to interact with it. The facade acts as a wrapper that provides a high-level interface, making the system easier to use without exposing the underlying complex components.
+
+Key Concepts:
+
+	•	Facade: The main class that simplifies the interaction with a set of interfaces in the subsystem.
+	•	Subsystem classes: Complex or multiple classes that perform the actual work.
+
+When to Use:
+
+	•	When you want to provide a simple interface to a complex system.
+	•	When you want to decouple the client code from the subsystem.
+	•	When you need to make the system more maintainable by encapsulating the complexity in one place.
+
+Example in Java:
+
+Let’s assume you have a home automation system with subsystems like Lights, TV, and AC, and you want to provide a simplified interface to operate all of them.
+
+Subsystem Classes:
+
+class Lights {
+    public void turnOn() {
+        System.out.println("Lights are turned ON");
+    }
+    
+    public void turnOff() {
+        System.out.println("Lights are turned OFF");
+    }
+}
+
+class TV {
+    public void turnOn() {
+        System.out.println("TV is turned ON");
+    }
+    
+    public void turnOff() {
+        System.out.println("TV is turned OFF");
+    }
+}
+
+class AC {
+    public void turnOn() {
+        System.out.println("AC is turned ON");
+    }
+    
+    public void turnOff() {
+        System.out.println("AC is turned OFF");
+    }
+}
+
+Facade Class:
+
+class HomeFacade {
+    private Lights lights;
+    private TV tv;
+    private AC ac;
+
+    public HomeFacade(Lights lights, TV tv, AC ac) {
+        this.lights = lights;
+        this.tv = tv;
+        this.ac = ac;
+    }
+
+    public void startMovie() {
+        System.out.println("Get ready to watch a movie...");
+        lights.turnOff();
+        tv.turnOn();
+        ac.turnOn();
+    }
+
+    public void endMovie() {
+        System.out.println("Shutting down movie experience...");
+        lights.turnOn();
+        tv.turnOff();
+        ac.turnOff();
+    }
+}
+
+Client Code:
+
+public class FacadePatternDemo {
+    public static void main(String[] args) {
+        // Create subsystem objects
+        Lights lights = new Lights();
+        TV tv = new TV();
+        AC ac = new AC();
+
+        // Create the facade object
+        HomeFacade homeFacade = new HomeFacade(lights, tv, ac);
+
+        // Use the simplified interface
+        homeFacade.startMovie();
+        homeFacade.endMovie();
+    }
+}
+
+Output:
+
+Get ready to watch a movie...
+Lights are turned OFF
+TV is turned ON
+AC is turned ON
+Shutting down movie experience...
+Lights are turned ON
+TV is turned OFF
+AC is turned OFF
+
+Benefits:
+
+	•	Simplifies usage: Users only need to interact with the facade, hiding the complexity of the subsystems.
+	•	Loose coupling: The facade decouples the client from the subsystem, making the system easier to modify and maintain.
+	•	Improved readability: The client code is cleaner and more readable.
+
+Drawbacks:
+
+	•	Limited flexibility: The facade limits the functionality available to the client. If the client needs direct access to subsystems, the facade can become a bottleneck.
