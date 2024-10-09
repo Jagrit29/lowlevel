@@ -12,3 +12,4 @@ Designs
 6. MusicPlayer - 22 Sept 2024
 7. ChessGame - 23 Sept 2024
 8. TicTacToe - 23 Sept 2024
+9. PaymentService using Strategy Pattern - 9th Oct 2024
