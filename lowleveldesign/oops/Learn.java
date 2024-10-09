@@ -159,6 +159,21 @@ class Cat extends Animal {
     }
 }
 
+interface Test {
+    void sendEmailxx();
+    void sendEmail2();
+}
+
+class TestConcrete implements Test {
+    public void sendEmailxx() {
+        System.out.println("email");
+    }
+
+    public void sendEmail2() {
+        System.out.println("email");
+    }
+}
+
 
 
 public class Learn {
