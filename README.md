@@ -13,3 +13,5 @@ Designs
 7. ChessGame - 23 Sept 2024
 8. TicTacToe - 23 Sept 2024
 9. PaymentService using Strategy Pattern - 9th Oct 2024
+10. KeyValueStore - Concurrent using ReadWriteLocks for each bucket - 17th Oct 2024
+11. NotificationQueue (Concurrent Message Queue) - 18 Oct 24
