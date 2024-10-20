@@ -7,6 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class NotificationQueue {
     private Queue<Notification> queue;
+    // choose to avoid the flag on produce
     private Lock produceLock;
     private Lock consumeLock;
 
@@ -27,7 +28,11 @@ public class NotificationQueue {
     }
 
     public Notification consume() {
-        consumeLock.lock();
+        consumeLock.lock(); // lock should have time out
+        // flag the message is alternate - What if consumer dies after reading the lock?
+        // Other way - Lock on the message, This is not at the top of queue, (DeadLetterQueue) (DLQ)
+        // 1: Consumer read and just died
+        // 2: Consumer read and stored but never processed
         try {
             if(queue.isEmpty()) {
                 return null;
@@ -37,5 +42,7 @@ public class NotificationQueue {
             consumeLock.unlock();
         }
     }
+
+    // Consumer will cronjob
 
 }

@@ -1,5 +1,8 @@
 package lowleveldesign.systems.messagequeue;
 
+// use BlockingQueue
+// Consistent Hashing (Multiple Topics), Send notifications messages based
+// 2 topcis - SMS topic and Email TOPIC
 public class Notification {
     private String userId;
     private String userName;

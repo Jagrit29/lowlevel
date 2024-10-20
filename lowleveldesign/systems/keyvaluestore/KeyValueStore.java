@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+// Concurrent
+//
+
 // Class To Store Key and Value
 class Entry<K, V>{
     K key;
@@ -32,7 +35,7 @@ public class KeyValueStore<K, V> {
 
     // getBucketIndex from the given key using Hash Function
     private int getBucketIndex(K key) {
-        return key.hashCode() % SIZE;
+        return key.hashCode() % SIZE; // HLD
     }
 
     // puts new value into the key value store;
@@ -41,6 +44,7 @@ public class KeyValueStore<K, V> {
         ReadWriteLock bucketLock = bucketLocks.get(index);
 
         // lock the writeLock
+        // It's basically binary Semaphore
         bucketLock.writeLock().lock();
         try {
             List<Entry<K, V>> bucket = buckets.get(index);
@@ -64,6 +68,10 @@ public class KeyValueStore<K, V> {
         ReadWriteLock bucketLock = bucketLocks.get(index);
 
         // lock the readlock for this bucket
+        // ReadWriteLock - Learn Semaphores and Mutex (Binary Semaphore)
+        // Limit the number of threads that can read at 1 time.
+        // ReadLock value can be put at 10L
+        // Put a lock counter
         bucketLock.readLock().lock();
         try {
             List<Entry<K, V>> bucket = buckets.get(index);

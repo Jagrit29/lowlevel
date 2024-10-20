@@ -21,3 +21,8 @@ class Consumer implements Runnable {
         }
     }
 }
+
+// Replay - DLQ
+// Reprocessing - Place the back of the queue again (First in First Out)
+// Who will handle it - Consumer
+
