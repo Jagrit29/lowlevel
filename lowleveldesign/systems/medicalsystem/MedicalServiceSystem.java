@@ -9,11 +9,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class MedicalServiceSystem {
     private static MedicalServiceSystem medicalServiceSystemInstance;
+    //  private Map<String, List<Doctor>> doctorBySpeciality;
     private Map<String, Doctor> doctors;
     private Map<String, Patient> patients;
     private Map<String, Appointment> appointments;
 
     private MedicalServiceSystem() {
+        // String
         this.doctors = new ConcurrentHashMap<>();
         this.patients = new ConcurrentHashMap<>();
         this.appointments = new ConcurrentHashMap<>();
@@ -82,5 +84,13 @@ public class MedicalServiceSystem {
             }
         }
     }
-
 }
+
+
+// SDE 2 - Not data heavy
+// Add Comments on the go - DSA
+// Code Structure -
+// Handle Exceptions and Mock the exception
+// catch and Log the exception
+
+

@@ -12,7 +12,6 @@ public class Appointment {
         this.doctorId = doctorId;
         this.timeSlot = timeSlot;
     }
-
     // Getters and setters
 }
 
