@@ -16,3 +16,4 @@ Designs
 10. KeyValueStore - Concurrent using ReadWriteLocks for each bucket - 17th Oct 2024
 11. NotificationQueue (Concurrent Message Queue) - 18 Oct 24
 12. Medical System - 20 Oct 24
+13. Restaurant Mgmt System - 21 Oct 24
