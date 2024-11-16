@@ -11,3 +11,7 @@ public class UberClientDemo {
         System.out.println("Ride with surge" +" "+ ride.getDescription()+" "+"Cost "+ride.getCost());
     }
 }
+
+// 1ms
+// 0.001 qps/
+// 50
