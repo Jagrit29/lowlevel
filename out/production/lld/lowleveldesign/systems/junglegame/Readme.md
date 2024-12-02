@@ -20,3 +20,19 @@ Design / Data Strucures
 2. get(key) - O(1)
 3. delete(key) - O(1)
 4. print() - LRU cache (O(N)) (MRU -> LRU)
+
+
+
+// 4 In Memory Cache System (data)
+
+// 4 cache servers
+// Key = 10, 4 servers
+
+// 10 % 4 = 2
+
+// Removal (Key:ServerInstance, Score) - SortedSet(Score) O(log(N))
+// 13, 4
+// 11, 3
+// 10, 2 
+
+// 4 clients -> Key = 10, (LB%4) - Consistent Hashing
