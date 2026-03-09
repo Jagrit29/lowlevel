@@ -4,3 +4,4 @@
 - Remove stock
 - Check availability - Given product and quanity return which warehouse can fullfit it
 - transfer stocks
+- testing
