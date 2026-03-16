@@ -19,19 +19,19 @@ public class InventoryManager {
      }
 
      public void addStock(String warehouseId, String productId, int quantity) {
-          if(!warehouses.containsKey(warehouseId)) return; // warehouse not found
+          if(!warehouses.containsKey(warehouseId)) throw new IllegalArgumentException("Warehouse " + warehouseId + "not found");
 
           // get warehouse and add stock
           Warehouse  warehouse = warehouses.get(warehouseId);
           warehouse.addStock(productId, quantity);
      }
 
-     public void removeStock(String warehouseId, String productId, int quantity) {
-          if(!warehouses.containsKey(warehouseId)) return;
+     public boolean removeStock(String warehouseId, String productId, int quantity) {
+          if(!warehouses.containsKey(warehouseId)) return false;
 
           // get warehouse and remove stock
           Warehouse warehouse = warehouses.get(warehouseId);
-          warehouse.removeStock(productId, quantity);
+          return warehouse.removeStock(productId, quantity);
      }
 
      public List<Warehouse> getWarehousesWithStock(String productId, int quantity) {
@@ -45,9 +45,9 @@ public class InventoryManager {
           return available;
      }
 
-     public void transfer(String fromWarehouseId, String toWarehouseId, String productId, int quantity) {
-          if(quantity <= 0) return; // input validation
-          if(!warehouses.containsKey(fromWarehouseId) || !warehouses.containsKey(toWarehouseId)) return;
+     public boolean transfer(String fromWarehouseId, String toWarehouseId, String productId, int quantity) {
+          if(quantity <= 0 || fromWarehouseId.equals(toWarehouseId)) return false; // input validation
+          if(!warehouses.containsKey(fromWarehouseId) || !warehouses.containsKey(toWarehouseId)) return false;
 
           Warehouse fromWh = warehouses.get(fromWarehouseId);
           Warehouse toWh = warehouses.get(toWarehouseId);
