@@ -13,9 +13,9 @@ public class InventorySystemDemo {
 
         // add products in the warehouse;
         hyderbadWarehouse.addStock("Iphone", 10);
-        bangaloreWarehouse.addStock("Iphone", 20);
+        bangaloreWarehouse.addStock("Iphone", 10);
 
-        List<String> warehouseList = new ArrayList<>(Arrays.asList(bangaloreWarehouse.getId(), hyderbadWarehouse.getId()));
+        List<Warehouse> warehouseList = new ArrayList<>(Arrays.asList(bangaloreWarehouse, hyderbadWarehouse));
 
         InventoryManager blinketInventoryManager = new InventoryManager(warehouseList);
 
@@ -23,6 +23,6 @@ public class InventorySystemDemo {
         blinketInventoryManager.setLowAlert("h1", "Iphone", 10, new EmailAlertListener());
         blinketInventoryManager.setLowAlert("b1", "Iphone", 7, new EmailAlertListener());
 
-        blinketInventoryManager.removeStock("b1", "Iphone", 5);
+        blinketInventoryManager.removeStock("b1", "Iphone", 4);
     }
 }

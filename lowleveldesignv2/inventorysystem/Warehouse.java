@@ -41,7 +41,7 @@ public class Warehouse {
     }
 
     public boolean removeStock(String productId, int quantity) {
-        if(!inventory.containsKey(productId) || inventory.get(productId) < quantity) return false;
+       //  if(!inventory.containsKey(productId) || inventory.get(productId) < quantity) return false;
         List<AlertToFire> alertsToFire = new ArrayList<>();
 
         // add a lock on this warehouse;

@@ -11,10 +11,10 @@ import java.util.concurrent.locks.Lock;
 public class InventoryManager {
      private final HashMap<String, Warehouse> warehouses;
 
-     public InventoryManager(List<String> warehouseIds) {
+     public InventoryManager(List<Warehouse> warehouses) {
           this.warehouses = new HashMap<>();
-          for(String id: warehouseIds) {
-               warehouses.putIfAbsent(id, new Warehouse(id));
+          for(Warehouse wh: warehouses) {
+               this.warehouses.put(wh.getId(), wh);
           }
      }
 
