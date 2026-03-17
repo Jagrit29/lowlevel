@@ -6,21 +6,9 @@ import java.util.List;
 
 public class Warehouse {
     private String id;
-    private HashMap<String, Integer> inventory;
-    private HashMap<String, List<AlertConfig>> alertConfigs; // for particular product, list of alert configs;
+    private final HashMap<String, Integer> inventory;
+    private final HashMap<String, List<AlertConfig>> alertConfigs; // for particular product, list of alert configs;
 
-
-    private static class AlertToFire {
-        private final AlertListener listener;
-        private final String productId;
-        private final int quantity;
-
-        public AlertToFire(AlertListener listener, String productId, int quantity) {
-            this.listener = listener;
-            this.productId = productId;
-            this.quantity = quantity;
-        }
-    }
 
     public Warehouse(String id) {
         this.id = id;
@@ -31,7 +19,6 @@ public class Warehouse {
     public String getId() {
         return id;
     }
-
 
 
     public void addStock(String productId, int quantity) {
@@ -53,9 +40,35 @@ public class Warehouse {
         if(!alertsToFire.isEmpty()) fireAlerts(alertsToFire);
     }
 
+    public boolean removeStock(String productId, int quantity) {
+        if(!inventory.containsKey(productId) || inventory.get(productId) < quantity) return false;
+        List<AlertToFire> alertsToFire = new ArrayList<>();
+
+        // add a lock on this warehouse;
+        synchronized (this) {
+            int currentQty = inventory.getOrDefault(productId, 0);
+            int newQty = currentQty - quantity;
+            inventory.put(productId, newQty);
+
+            // there could be multiple alerts for the same product;
+            alertsToFire = getAlertsToFire(productId, currentQty, newQty);
+
+        }
+
+        if(!alertsToFire.isEmpty()) fireAlerts(alertsToFire);
+
+        return true;
+    }
+
+    public boolean checkAvailability(String productId, int quantity) {
+        return inventory.containsKey(productId) && inventory.get(productId) >= quantity;
+    }
+
     private List<AlertToFire> getAlertsToFire(String productId, int previousQty, int newQty) {
         List<AlertToFire> alerts = new ArrayList<>();
         List<AlertConfig> configs = alertConfigs.get(productId); // null checking;
+
+        if(configs == null) return alerts;
 
         for(AlertConfig config: configs) {
             if(previousQty >= config.getThreshold() && newQty < config.getThreshold()) {
@@ -72,14 +85,21 @@ public class Warehouse {
         }
     }
 
-    public boolean removeStock(String productId, int quantity) {
-        if(!inventory.containsKey(productId) || inventory.get(productId) < quantity) return false;
-        inventory.put(productId, inventory.getOrDefault(productId, 0) - quantity);
+    private static class AlertToFire {
+        private final AlertListener listener;
+        private final String productId;
+        private final int quantity;
 
-        return true;
+        public AlertToFire(AlertListener listener, String productId, int quantity) {
+            this.listener = listener;
+            this.productId = productId;
+            this.quantity = quantity;
+        }
     }
 
-    public boolean checkAvailability(String productId, int quantity) {
-        return inventory.containsKey(productId) && inventory.get(productId) >= quantity;
+    public synchronized void setLowAlert(String productId, int threshold, AlertListener listener) {
+        // error handling
+        alertConfigs.computeIfAbsent(productId, k -> new ArrayList<>());
+        alertConfigs.get(productId).add(new AlertConfig(threshold, listener));
     }
 }

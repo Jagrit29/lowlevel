@@ -9,7 +9,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
 public class InventoryManager {
-     HashMap<String, Warehouse> warehouses;
+     private final HashMap<String, Warehouse> warehouses;
 
      public InventoryManager(List<String> warehouseIds) {
           this.warehouses = new HashMap<>();
@@ -58,10 +58,18 @@ public class InventoryManager {
 
           synchronized (first) {
                synchronized (second) {
-                    if(!fromWh.removeStock(productId, quantity)) return;
+                    if(!fromWh.removeStock(productId, quantity)) return false;
 
                     toWh.addStock(productId, quantity);
                }
           }
+
+          return true;
+     }
+
+     public void setLowAlert(String warehouseId, String productId, int threshold, AlertListener listener) {
+          // TODO: add error handling;
+          Warehouse wh = warehouses.get(warehouseId);
+          wh.setLowAlert(productId, threshold, listener);
      }
 }

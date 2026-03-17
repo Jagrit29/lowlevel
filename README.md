@@ -19,3 +19,7 @@ Designs
 13. Restaurant Mgmt System - 21 Oct 24
 14. FoodKart - 26 Oct
 15. GoogleDoc - 16 Nov
+
+
+Designs - 2026
+- Inventory Management System 
