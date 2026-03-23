@@ -399,7 +399,5 @@ public class FlitnessApp {
         fitnessService.viewSchedule("sourabh@gmail.com", "20-06-24");
         fitnessService.viewSchedule("jagrit@gmail.com", "20-06-24");
 
-
-
     }
 }
